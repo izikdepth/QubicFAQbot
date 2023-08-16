@@ -425,38 +425,44 @@ async def echo(update):
 def main():
     app = Application.builder().token(os.getenv("TELEGRAM_TOKEN")).build()
 
-    app.add_handler(CommandHandler("start", start))
-    app.add_handler(CommandHandler("otc", otc))
-    app.add_handler(CommandHandler("AI", AI))
-    app.add_handler(CommandHandler("founder", founder))
-    app.add_handler(CommandHandler("history", history))
-    app.add_handler(CommandHandler("whitepaper", whitepaper))
-    app.add_handler(CommandHandler("docs", docs))
-    app.add_handler(CommandHandler("help", help))  
-    app.add_handler(CommandHandler("node", node))  
-    app.add_handler(CommandHandler("arbitor", arbitor))
-    app.add_handler(CommandHandler("aigarth", aigarth))
-    app.add_handler(CommandHandler("algorithm", algorithm))
-    app.add_handler(CommandHandler("qubicBlockchain", qubicBlockchain))
-    app.add_handler(CommandHandler("team", team))
-    app.add_handler(CommandHandler("whyUPoW", whyUPoW))
-    app.add_handler(CommandHandler("UPoW", UPoW))
-    app.add_handler(CommandHandler("oracles", oracles))
-    app.add_handler(CommandHandler("whyQubic", whyQubic))
-    app.add_handler(CommandHandler("gpuMining", gpuMining))
-    app.add_handler(CommandHandler("cpuMining", cpuMining))
-    app.add_handler(CommandHandler("transactionTimeout", transactionTimeout))
-    app.add_handler(CommandHandler("createQubicWallet", createQubicWallet))
-    app.add_handler(CommandHandler("manageSeed", manageSeed))
-    # app.add_handler(CommandHandler("totalSupply", totalSupply))
-    # app.add_handler(CommandHandler("Mcap", Mcap))
-    app.add_handler(CommandHandler("maxSupply",maxSupply))
-    app.add_handler(CommandHandler("price", price))
-    app.add_handler(CommandHandler("fdv", fdv))
-    
-    
-    
-  
+    #commands you can call 
+    commands = {
+    "start": start,
+    "otc": otc,
+    "AI": AI,
+    "founder": founder,
+    "history": history,
+    "whitepaper": whitepaper,
+    "docs": docs,
+    "help": help,
+    "node": node,
+    "arbitor": arbitor,
+    "aigarth": aigarth,
+    "algorithm": algorithm,
+    "qubicBlockchain": qubicBlockchain,
+    "team": team,
+    "whyUPoW": whyUPoW,
+    "UPoW": UPoW,
+    "oracles": oracles,
+    "whyQubic": whyQubic,
+    "gpuMining": gpuMining,
+    "cpuMining": cpuMining,
+    "transactionTimeout": transactionTimeout,
+    "createQubicWallet": createQubicWallet,
+    "manageSeed": manageSeed,
+    # "totalSupply": totalSupply,
+    # "Mcap": Mcap,
+    "maxSupply": maxSupply,
+    "price": price,
+    "fdv": fdv,
+}
+
+    for command in commands:
+        func = globals().get(command)
+        if func:
+            app.add_handler(CommandHandler(command, func))
+    else:
+        print(f"No function matches the command: {command}")
     
 
 
