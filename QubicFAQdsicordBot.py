@@ -341,7 +341,7 @@ async def help(ctx):
     "18. !gpuMining - can I use GPU to mine?\n"
     "19. !cpuMining - mining Qubic coins with CPU\n"
     "20. !transactiontimeout - what happens when my transaction fails?\n"
-    "21. !createQubicWallet - how to create a wallet\n"
+    "21. !wallet - how to create a wallet\n"
     "22. !manageSeed - how to manage your seed\n"
     "23. !price - to check the price of Qubic\n"
     "24. !maxSupply - to check the maximum supply\n")
