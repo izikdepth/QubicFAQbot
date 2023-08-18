@@ -4,6 +4,7 @@ from discord.ext import commands
 from dotenv import load_dotenv
 import json
 import requests
+import logging
 
 
 load_dotenv()
@@ -17,17 +18,33 @@ intents.message_content = True #Corresponds to `MESSAGE INTENT`
 #set prefix
 bot = commands.Bot(command_prefix='!', intents=intents,  help_command=None) #command prefix
 
+#logging
+logging.basicConfig(level=logging.INFO, filename="bot_log.log", format="%(asctime)s %(levelname)s: %(message)s")
+
+#to track users who have interacted with the bot
+user_interactions = {}
+
+
+# @bot.event
+# async def on_read():
+#     print(f"logged in as {bot.user.name} - {bot.user.id}")
+#     print('------')
 @bot.event
-async def on_read():
-    print(f"logged in as {bot.user.name} - {bot.user.id}")
-    print('------')
+async def on_ready():
+    logging.info(f"Logged in as {bot.user.name} - {bot.user.id}")
+    logging.info(f"Total user interactions: {sum(user_interactions.values())}")
+    logging.info(f"Unique users: {len(user_interactions)}")
+
+
     
 @bot.command()
 async def start(ctx):
+    logging.info(f"{ctx.author} used the {ctx.command} command")  # Log command usage
     await ctx.send("You've now activated Qubic's FAQ bot. use command !help to view available commands")
 
 @bot.command()
 async def otc(ctx):
+    logging.info(f"{ctx.author} used the {ctx.command} command")  # Log command usage
     message = (
         "*Seller and Buyer agree to a Deal*\n\n"
         "1. *Seller* transfers qus to escrow account of *Escrowee*\n"
@@ -51,7 +68,7 @@ async def otc(ctx):
 
 @bot.command()
 async def ai(ctx):
-    
+    logging.info(f"{ctx.author} used the {ctx.command} command")
     message = (
     "Real AI, also known as Artificial General Intelligence (AGI),\n"
     "refers to a type of artificial intelligence that has the ability to understand, learn,\n"
@@ -64,6 +81,7 @@ async def ai(ctx):
     
 @bot.command()
 async def founder(ctx):
+    logging.info(f"{ctx.author} used the {ctx.command} command")
     message = (
         "The main developer behind Qubic is Sergey Ivancheglo (also known as Come-From-Beyond or CFB), "
         "a co-founder of NXT, IOTA, and a prominent figure in the crypto community. "
@@ -74,6 +92,7 @@ async def founder(ctx):
     
 @bot.command()
 async def history(ctx):
+    logging.info(f"{ctx.author} used the {ctx.command} command")
     message = (
         "Qubic history:\n"
         "- Qubic dates back to 2012. Check out the discussion on [bitcointalk.org](https://bitcointalk.org/index.php?topic=112676.0)\n"
@@ -88,6 +107,7 @@ async def history(ctx):
 
 @bot.command()
 async def whitepaper(ctx):
+    logging.info(f"{ctx.author} used the {ctx.command} command")
     message = (
         "[WHITEPAPER](https://docs.qubic.world/overview/whitepaper/)"
     )
@@ -95,11 +115,13 @@ async def whitepaper(ctx):
     
 @bot.command()
 async def docs(ctx):
+    logging.info(f"{ctx.author} used the {ctx.command} command")
     message = "1. [OFFICIAL DOCS](https://docs.qubic.world/)\n2. [COMMUNITY DOCS - still valid](https://qubic-world-2.gitbook.io/welcome-to-gitbook/)"
     await ctx.send(message)
     
 @bot.command()
 async def wallet(ctx):
+    logging.info(f"{ctx.author} used the {ctx.command} command")
     instructions = (
         "To create a Qubic wallet, follow these steps:\n\n"
         "1. Click the website [Qubic Wallet](https://wallet.qubic.li/)\n"
@@ -139,17 +161,20 @@ def get_price(request):
     
 @bot.command()
 async def price(ctx):
+    logging.info(f"{ctx.author} used the {ctx.command} command")
     qubic_price = get_price(requests)
     formatted_price = "{:.8f}".format(qubic_price)
     await ctx.send(f"The current price of QUBIC is: {formatted_price} $")
     
 @bot.command()
 async def node(ctx):
+    logging.info(f"{ctx.author} used the {ctx.command} command")
     message = ("[GUIDE TO RUN A QUBIC NODE](https://github.com/J0ET0M/qubic-howto)")
     await ctx.send(message)
     
 @bot.command()
 async def arbitor(ctx):
+    logging.info(f"{ctx.author} used the {ctx.command} command")
     message = (
         "An entity within the Qubic ecosystem responsible for resolving disputes and protecting user interests. "
         "The arbitrator sets parameters of the mining algorithm, publishes lists of computors every epoch, is developing "
@@ -161,6 +186,7 @@ async def arbitor(ctx):
     
 @bot.command()
 async def aigarth(ctx):
+    logging.info(f"{ctx.author} used the {ctx.command} command")
     message = (
         "Aigarth is a pioneering project that will be developed on top of the Qubic network. "
         "It combines the fields of artificial intelligence and distributed computing to create a collective system "
@@ -191,6 +217,7 @@ async def aigarth(ctx):
     
 @bot.command()
 async def algorithm(ctx):
+    logging.info(f"{ctx.author} used the {ctx.command} command")
     message = (
         "Qubic uses the KangarooTwelve cryptographic hashing algorithm for mining, "
         "with a slight modification which makes it specific to the Qubic network."
@@ -198,7 +225,8 @@ async def algorithm(ctx):
     await ctx.send(message)
     
 @bot.command()
-async def qubicBlockchain(ctx):
+async def qubicblockchain(ctx):
+    logging.info(f"{ctx.author} used the {ctx.command} command")
     message = (
         "Qubic is an independent technology that operates on its own blockchain solution. "
         "Through this independent blockchain, Qubic enables an innovative approach, incorporating Quorum "
@@ -209,6 +237,7 @@ async def qubicBlockchain(ctx):
     
 @bot.command()
 async def team(ctx):
+    logging.info(f"{ctx.author} used the {ctx.command} command")
     message = (
         "As of the last update in September 2021, individual team members other than CFB were not explicitly mentioned. "
         "Current information can be found in the official Qubic resources or in the community channels."
@@ -217,6 +246,7 @@ async def team(ctx):
     
 @bot.command()
 async def whyUPoW(ctx):
+    logging.info(f"{ctx.author} used the {ctx.command} command")
     message = (
         "The concept of Useful Proof of Work (UPoW) represents an evolution in the conventional Proof of Work (PoW) approach. "
         "While traditional PoW algorithms demand computational resources to solve arbitrary mathematical problems as a means to "
@@ -232,6 +262,7 @@ async def whyUPoW(ctx):
     
 @bot.command()
 async def upow(ctx):
+    logging.info(f"{ctx.author} used the {ctx.command} command")
     message = (
         "Proof of Work (PoW) is a fundamental concept employed across various computer sciences and particularly in the realm "
         "of cryptocurrencies, where it ensures the security and reliability of decentralized networks like Bitcoin. It accomplishes "
@@ -243,6 +274,7 @@ async def upow(ctx):
     
 @bot.command()
 async def oracles(ctx):
+    logging.info(f"{ctx.author} used the {ctx.command} command")
     message = (
         "Oracles in Qubic serve as a bridge between the digital blockchain environment and the outside world. "
         "They provide real-world data to smart contracts and the Qubic protocol. These could be anything from "
@@ -252,7 +284,8 @@ async def oracles(ctx):
     await ctx.send(message)
     
 @bot.command()
-async def whyQubic(ctx):
+async def whyqubic(ctx):
+    logging.info(f"{ctx.author} used the {ctx.command} command")
     message = (
         "Smart Contracts (SC) on Qubic are truly remarkable as they harness the power of Qubic Units (QUBIC) "
         "as 'energy' to facilitate contract execution. Unlike traditional Smart Contracts, Qubic SCs are "
@@ -269,7 +302,8 @@ async def whyQubic(ctx):
     await ctx.send(message)
     
 @bot.command()
-async def gpuMining(ctx):
+async def gpumining(ctx):
+    logging.info(f"{ctx.author} used the {ctx.command} command")
     message = (
         "Yes, it is possible, but it is not particularly effective compared to using a CPU. "
         "For this reason, it is more advisable to use a CPU to achieve the desired mining performance."
@@ -277,7 +311,8 @@ async def gpuMining(ctx):
     await ctx.send(message)
     
 @bot.command()
-async def cpuMining(ctx):
+async def cpumining(ctx):
+    logging.info(f"{ctx.author} used the {ctx.command} command")
     message = (
         "In this case, it has been found that mining on the CPU is more effective. "
         "This is because the mining algorithm used benefits from the parallel processing of multiple CPU cores, resulting in higher efficiency."
@@ -285,7 +320,8 @@ async def cpuMining(ctx):
     await ctx.send(message)
  
 @bot.command()
-async def transactionTimeout(ctx):
+async def transactiontimeout(ctx):
+    logging.info(f"{ctx.author} used the {ctx.command} command")
     message = (
         "Every transaction includes the number of the tick in which it can be processed. "
         "If that tick has passed and the transaction hasn't been processed, it will need to be repeated. "
@@ -295,7 +331,8 @@ async def transactionTimeout(ctx):
     await ctx.send(message)  
     
 @bot.command()
-async def manageSeed(ctx):
+async def manageseed(ctx):
+    logging.info(f"{ctx.author} used the {ctx.command} command")
     instructions = (
         "Your seed acts as your password, similar to a private key in Bitcoin.\n"
         "It's confidential and should be securely stored at all times.\n\n"
@@ -309,7 +346,8 @@ async def manageSeed(ctx):
     await ctx.send(instructions)
     
 @bot.command()
-async def maxSupply(ctx):
+async def maxsupply(ctx):
+    logging.info(f"{ctx.author} used the {ctx.command} command")
     message = (
     "The maximum supply of Qubic coin $Qu is 100 Trillion.\n"
     "Confirmation from [founder](https://twitter.com/c___f___b/status/1690411278387363840?s=20)."
@@ -319,6 +357,7 @@ async def maxSupply(ctx):
  
 @bot.command()
 async def help(ctx):
+    logging.info(f"{ctx.author} used the {ctx.command} command")
     message = (
     "Here are the available commands:\n\n"
     "1. !help - Check available commands\n"
@@ -332,19 +371,19 @@ async def help(ctx):
     "9. !arbitor - what is an arbitor\n"
     "10. !aigarth - learn about Aigarth\n"
     "11. !algorithm - what algorithm does Qubic use?\n"
-    "12. !qubicBlockchain - what blockchains use qubic?\n"
+    "12. !qubicblockchain - what blockchains use qubic?\n"
     "13. !team - who are the team members of Qubic blockchain?\n"
     "14. !whyUPoW - why UPow?\n"
     "15. !upow - what is Useful Proof of Work?\n"
     "16. !oracles - oracles\n"
-    "17. !whyQubic - what's new about Qubic blockchain?\n"
-    "18. !gpuMining - can I use GPU to mine?\n"
-    "19. !cpuMining - mining Qubic coins with CPU\n"
+    "17. !whyqubic - what's new about Qubic blockchain?\n"
+    "18. !gpumining - can I use GPU to mine?\n"
+    "19. !cpumining - mining Qubic coins with CPU\n"
     "20. !transactiontimeout - what happens when my transaction fails?\n"
     "21. !wallet - how to create a wallet\n"
-    "22. !manageSeed - how to manage your seed\n"
+    "22. !manageseed - how to manage your seed\n"
     "23. !price - to check the price of Qubic\n"
-    "24. !maxSupply - to check the maximum supply\n")
+    "24. !maxsupply - to check the maximum supply\n")
     
     await ctx.send(message)
 
