@@ -19,7 +19,7 @@ intents.message_content = True #Corresponds to `MESSAGE INTENT`
 bot = commands.Bot(command_prefix='!', intents=intents,  help_command=None) #command prefix
 
 #logging
-logging.basicConfig(level=logging.INFO, filename="bot_log.log", format="%(asctime)s %(levelname)s: %(message)s")
+logging.basicConfig(level=logging.INFO, filename="qubicfaqbot_log.log", format="%(asctime)s %(levelname)s: %(message)s")
 
 #to track users who have interacted with the bot
 user_interactions = {}
