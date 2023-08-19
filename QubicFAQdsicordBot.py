@@ -141,7 +141,7 @@ async def slash_command(interaction:discord.Interaction):
         "6. Enter a name for your wallet and click the 'X' icon to reveal your private key.\n"
         "   Make sure to copy your private key in a safe and secure place.\n"
         "7. Click 'Create Address'.\n\n"
-        "For more detailed information, check out the [Qubic Wallet Documentation](https://docs.qubic.world/learn/wallets)."
+        "For more detailed information, check out the [Qubic Wallet Documentation](https://discord.com/channels/768887649540243497/1074609434015322132/1128710949436661932)."
     )
     await interaction.response.send_message(instructions)
     
