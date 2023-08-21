@@ -70,7 +70,10 @@ async def slash_command(interaction:discord.Interaction):
         "- if wished anonymity for both sides\n"
         "- help to understand how qubic work\n"
         "- help to set up and secure a qubic address\n\n"
-        "and all of that we do with a smile for you. *ask us to mark one of your posts in the qubic channel with a reaction to be sure that you are speaking with the right person.*"
+        "and all of that we do with a smile for you. *ask us to mark one of your posts in the qubic channel with a reaction to be sure that you are speaking with the right person.*\n"
+        "OTC channels are [#otc-wtb-wts ](https://discord.com/channels/768887649540243497/938806734212984853)\n"
+        "and [#otc-caldera ](https://discord.com/channels/768887649540243497/1138775190684315739)\n"
+        "[safe trade support](https://discord.com/channels/768887649540243497/1138775232379891844)"
     )
     await interaction.response.send_message(message) 
     
